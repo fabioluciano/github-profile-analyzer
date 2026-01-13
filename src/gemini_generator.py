@@ -214,12 +214,10 @@ Crie um README.md profissional, moderno e impactante seguindo estas diretrizes:
 
 ### 6. "💼 Experiência & Stack Tecnológica"
 
-**OBRIGATÓRIO**: Use EXATAMENTE as categorias e tecnologias abaixo (dados do currículo oficial):
+**CRÍTICO - COPIE EXATAMENTE**: Os badges abaixo já estão prontos. Copie-os exatamente como estão.
+**NÃO adicione texto após os badges. NÃO adicione tecnologias extras.**
 
 {skills_section}
-
-Use badges do shields.io para cada tecnologia:
-`![Nome](https://img.shields.io/badge/Nome-HEX?style=for-the-badge&logo=nome&logoColor=white)`
 
 ### 7. "🤝 Contribuições & Colaboração"
 - Se houver PRs externos, mencione

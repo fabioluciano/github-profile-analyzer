@@ -172,27 +172,96 @@ def format_skills_for_prompt(resume_data: Dict[str, Any]) -> str:
         resume_data: Resume data dictionary from fetch_resume_data.
 
     Returns:
-        Formatted string with skills categories and technologies.
+        Formatted string with skills categories and technologies with valid badges only.
     """
     if not resume_data.get("skills"):
         return "Dados do currículo não disponíveis."
 
+    # Technologies with valid shields.io logos (logo parameter works)
+    # Format: "display_name": ("logo_name", "hex_color")
+    valid_badges = {
+        # Languages
+        "Go": ("go", "00ADD8"),
+        "Python": ("python", "3776AB"),
+        "Shell": ("gnubash", "121011"),
+        "Bash": ("gnubash", "121011"),
+        "TypeScript": ("typescript", "3178C6"),
+        "Rust": ("rust", "000000"),
+        "Lua": ("lua", "2C2D72"),
+        # Cloud
+        "AWS": ("amazonwebservices", "232F3E"),
+        "Azure": ("microsoftazure", "0078D4"),
+        "GCP": ("googlecloud", "4285F4"),
+        # Containers & Orchestration
+        "Kubernetes": ("kubernetes", "326CE5"),
+        "Docker": ("docker", "2496ED"),
+        "Helm": ("helm", "0F1689"),
+        "Podman": ("podman", "892CA0"),
+        # CI/CD & GitOps
+        "ArgoCD": ("argo", "EF7B4D"),
+        "GitHub Actions": ("githubactions", "2088FF"),
+        "GitLab CI": ("gitlab", "FC6D26"),
+        "Tekton": ("tekton", "FD495C"),
+        "Jenkins": ("jenkins", "D24939"),
+        # IaC
+        "Terraform": ("terraform", "7B42BC"),
+        "Ansible": ("ansible", "EE0000"),
+        "Pulumi": ("pulumi", "8A3391"),
+        "Crossplane": ("crossplane", "326CE5"),
+        # Observability
+        "Prometheus": ("prometheus", "E6522C"),
+        "Grafana": ("grafana", "F46800"),
+        "OpenTelemetry": ("opentelemetry", "000000"),
+        "Jaeger": ("jaeger", "66CFE3"),
+        # DevSecOps
+        "SonarQube": ("sonarqube", "4E9BCD"),
+        "Snyk": ("snyk", "4C4A73"),
+        "Trivy": ("trivy", "1904DA"),
+        # Service Mesh
+        "Istio": ("istio", "466BB0"),
+        "Envoy": ("envoyproxy", "AC6199"),
+        "Cilium": ("cilium", "F8C517"),
+        # Databases & Messaging
+        "PostgreSQL": ("postgresql", "4169E1"),
+        "Redis": ("redis", "DC382D"),
+        "MongoDB": ("mongodb", "47A248"),
+        "Apache Kafka": ("apachekafka", "231F20"),
+        "RabbitMQ": ("rabbitmq", "FF6600"),
+        # Other tools
+        "Git": ("git", "F05032"),
+        "Linux": ("linux", "FCC624"),
+        "Nginx": ("nginx", "009639"),
+        "HashiCorp Vault": ("vault", "000000"),
+    }
+
     lines = []
-    badge_colors = resume_data.get("badge_colors", {})
+    lines.append("**REGRA IMPORTANTE**: Use badges APENAS para tecnologias listadas abaixo.")
+    lines.append("NÃO misture badges com texto. Se a tecnologia não tem badge, NÃO a inclua.")
+    lines.append("")
 
-    for category, keywords in resume_data["skills"].items():
+    # Group technologies by category
+    category_mapping = {
+        "Linguagens de Programação": ["Go", "Python", "Shell", "TypeScript", "Rust", "Lua"],
+        "Cloud & FinOps": ["AWS", "Azure", "GCP"],
+        "Orquestração de Containers": ["Kubernetes", "Docker", "Helm", "Podman"],
+        "CI/CD & GitOps": ["ArgoCD", "GitHub Actions", "GitLab CI", "Tekton", "Jenkins"],
+        "Infraestrutura como Código": ["Terraform", "Ansible", "Pulumi", "Crossplane"],
+        "Observabilidade": ["Prometheus", "Grafana", "OpenTelemetry", "Jaeger"],
+        "DevSecOps": ["SonarQube", "Snyk", "Trivy"],
+        "Service Mesh & Redes": ["Istio", "Envoy", "Cilium"],
+        "Bancos de Dados & Message Brokers": ["PostgreSQL", "Redis", "MongoDB", "Apache Kafka", "RabbitMQ"],
+    }
+
+    for category, techs in category_mapping.items():
         lines.append(f"#### {category}")
-        lines.append(f"- {', '.join(keywords)}")
+        badge_list = []
+        for tech in techs:
+            if tech in valid_badges:
+                logo, color = valid_badges[tech]
+                badge_list.append(
+                    f"![{tech}](https://img.shields.io/badge/{tech.replace(' ', '_')}-{color}?style=for-the-badge&logo={logo}&logoColor=white)"
+                )
+        lines.append(" ".join(badge_list))
         lines.append("")
-
-    # Add badge color reference
-    lines.append("Cores para badges (HEX sem #):")
-    color_items = []
-    for tech, color in badge_colors.items():
-        color_items.append(f"{tech}: {color}")
-
-    # Group colors in lines of 5
-    for i in range(0, len(color_items), 5):
-        lines.append(f"- {', '.join(color_items[i:i+5])}")
 
     return "\n".join(lines)
