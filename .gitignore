@@ -1,0 +1,12 @@
+.ruff_cache
+.mypy_cache
+__pycache__
+src/topics_and_descriptions.json
+.envrc
+.env
+.venv
+profile/
+
+# Generated profile READMEs (when running locally)
+README.pt-br.md
+README.en.md

@@ -1,0 +1,54 @@
+name: Update GitHub Profile
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Daily at 6am UTC
+  workflow_dispatch:      # Manual trigger
+
+env:
+  GITHUB_USERNAME: fabioluciano
+  PROFILE_REPO: fabioluciano/fabioluciano
+
+jobs:
+  update-profile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout analyzer repo
+        uses: actions/checkout@v4
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Clone profile repo
+        run: |
+          git clone https://x-access-token:${{ secrets.PROFILE_REPO_PAT }}@github.com/${{ env.PROFILE_REPO }}.git profile
+
+      - name: Run analysis
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GITHUB_USERNAME: ${{ env.GITHUB_USERNAME }}
+          OUTPUT_DIR: profile
+        run: uv run github-analyzer
+
+      - name: Commit and push to profile repo
+        run: |
+          cd profile
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add README.md README.pt-br.md README.en.md
+
+          # Only commit if there are changes
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update profile READMEs [skip ci]"
+            git push
+            echo "Profile updated successfully!"
+          fi
