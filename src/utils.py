@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional
 
 import requests
+import yaml
 
 
 def setup_directories(dir_path: str) -> None:
@@ -84,3 +85,114 @@ def fetch_blog_posts(rss_url: str, max_posts: int = 5) -> List[Dict[str, str]]:
         return posts
     except Exception:
         return []
+
+
+def fetch_resume_data(base_url: str) -> Dict[str, Any]:
+    """Fetch and parse resume data from GitHub repository.
+
+    Args:
+        base_url: Base URL for raw GitHub content (e.g.,
+            https://raw.githubusercontent.com/user/repo/main/data)
+
+    Returns:
+        Dictionary with parsed resume data including skills categories.
+    """
+    resume_data: Dict[str, Any] = {
+        "skills": {},
+        "certifications": [],
+    }
+
+    # Define badge colors for common technologies
+    badge_colors = {
+        # Languages
+        "go": "00ADD8", "python": "3776AB", "shell": "121011", "bash": "121011",
+        "typescript": "3178C6", "rust": "000000", "lua": "2C2D72",
+        # Cloud
+        "aws": "232F3E", "azure": "0078D4", "gcp": "4285F4",
+        # Containers & Orchestration
+        "kubernetes": "326CE5", "docker": "2496ED", "helm": "0F1689",
+        "kustomize": "326CE5", "podman": "892CA0",
+        # CI/CD & GitOps
+        "argocd": "EF7B4D", "github actions": "2088FF", "gitlab ci": "FC6D26",
+        "tekton": "FD495C", "jenkins": "D24939",
+        # IaC
+        "terraform": "7B42BC", "ansible": "EE0000", "pulumi": "8A3391",
+        "crossplane": "326CE5",
+        # Observability
+        "prometheus": "E6522C", "grafana": "F46800", "opentelemetry": "000000",
+        "jaeger": "66CFE3",
+        # DevSecOps
+        "sonarqube": "4E9BCD", "snyk": "4C4A73", "trivy": "1904DA",
+        "opa": "7D9199", "gatekeeper": "7D9199",
+        # Service Mesh
+        "istio": "466BB0", "linkerd": "2BEDA7", "envoy": "AC6199", "cilium": "F8C517",
+        # Databases & Messaging
+        "postgresql": "4169E1", "redis": "DC382D", "mongodb": "47A248",
+        "kafka": "231F20", "rabbitmq": "FF6600",
+    }
+
+    try:
+        # Fetch resume.ptbr.yaml
+        response = requests.get(f"{base_url}/resume.ptbr.yaml", timeout=10)
+        response.raise_for_status()
+        ptbr_data = yaml.safe_load(response.text)
+
+        # Extract skills from resume
+        if ptbr_data and "skills" in ptbr_data:
+            for skill_category in ptbr_data["skills"]:
+                category_name = skill_category.get("name", "")
+                keywords = skill_category.get("keywords", [])
+                if category_name and keywords:
+                    resume_data["skills"][category_name] = keywords
+
+        # Try to fetch common.yaml for certifications
+        try:
+            common_response = requests.get(f"{base_url}/common.yaml", timeout=10)
+            common_response.raise_for_status()
+            common_data = yaml.safe_load(common_response.text)
+            if common_data and "certifications" in common_data:
+                resume_data["certifications"] = common_data["certifications"]
+        except Exception:
+            pass
+
+    except Exception as e:
+        print(f"⚠ Error fetching resume data: {e}")
+        return resume_data
+
+    # Add badge colors for reference
+    resume_data["badge_colors"] = badge_colors
+
+    return resume_data
+
+
+def format_skills_for_prompt(resume_data: Dict[str, Any]) -> str:
+    """Format skills data into a string for the Gemini prompt.
+
+    Args:
+        resume_data: Resume data dictionary from fetch_resume_data.
+
+    Returns:
+        Formatted string with skills categories and technologies.
+    """
+    if not resume_data.get("skills"):
+        return "Dados do currículo não disponíveis."
+
+    lines = []
+    badge_colors = resume_data.get("badge_colors", {})
+
+    for category, keywords in resume_data["skills"].items():
+        lines.append(f"#### {category}")
+        lines.append(f"- {', '.join(keywords)}")
+        lines.append("")
+
+    # Add badge color reference
+    lines.append("Cores para badges (HEX sem #):")
+    color_items = []
+    for tech, color in badge_colors.items():
+        color_items.append(f"{tech}: {color}")
+
+    # Group colors in lines of 5
+    for i in range(0, len(color_items), 5):
+        lines.append(f"- {', '.join(color_items[i:i+5])}")
+
+    return "\n".join(lines)

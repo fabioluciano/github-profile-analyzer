@@ -9,7 +9,14 @@ from google import genai
 from google.genai import types
 
 from .config import settings
-from .utils import fetch_blog_posts, format_topics, safe_get, truncate_text
+from .utils import (
+    fetch_blog_posts,
+    fetch_resume_data,
+    format_skills_for_prompt,
+    format_topics,
+    safe_get,
+    truncate_text,
+)
 
 
 class GeminiContentGenerator:
@@ -58,6 +65,10 @@ class GeminiContentGenerator:
             blog_section = "\n## ÚLTIMOS POSTS DO BLOG\n" + "\n".join(
                 [f"- [{p['title']}]({p['link']}) - {p['pub_date']}" for p in blog_posts]
             )
+
+        # Fetch resume data for tech stack
+        resume_data = fetch_resume_data(settings.resume_repo_base)
+        skills_section = format_skills_for_prompt(resume_data)
 
         prompt = f"""Você é um especialista em criar perfis GitHub profissionais e envolventes. Analise os dados abaixo e crie um README.md excepcional que conte a história profissional do desenvolvedor de forma autêntica e impactante.
 
@@ -203,27 +214,12 @@ Crie um README.md profissional, moderno e impactante seguindo estas diretrizes:
 
 ### 6. "💼 Experiência & Stack Tecnológica"
 
-Organize em categorias relevantes baseadas nos dados:
-- **Linguagens**: principais linguagens com badges
-- **Frameworks/Bibliotecas**: principais ferramentas
-- **DevOps & Ferramentas**: se relevante
-- **Databases**: se identificadas
-- **Cloud/Infraestrutura**: se relevante
+**OBRIGATÓRIO**: Use EXATAMENTE as categorias e tecnologias abaixo (dados do currículo oficial):
 
-Use badges do shields.io:
+{skills_section}
+
+Use badges do shields.io para cada tecnologia:
 `![Nome](https://img.shields.io/badge/Nome-HEX?style=for-the-badge&logo=nome&logoColor=white)`
-
-Cores sugeridas por tecnologia (use HEX sem #):
-- Python: 3776AB
-- JavaScript: F7DF1E
-- TypeScript: 3178C6
-- Go: 00ADD8
-- Rust: 000000
-- Docker: 2496ED
-- Kubernetes: 326CE5
-- React: 61DAFB
-- Vue: 4FC08D
-- Node.js: 339933
 
 ### 7. "🤝 Contribuições & Colaboração"
 - Se houver PRs externos, mencione
