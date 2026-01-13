@@ -38,6 +38,8 @@ jobs:
         run: uv run github-analyzer
 
       - name: Commit and push to profile repo
+        env:
+          PROFILE_REPO_PAT: ${{ secrets.PROFILE_REPO_PAT }}
         run: |
           cd profile
           git config user.name "GitHub Actions Bot"
@@ -49,6 +51,6 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "Update profile READMEs [skip ci]"
-            git push
+            git push https://x-access-token:${PROFILE_REPO_PAT}@github.com/${{ env.PROFILE_REPO }}.git
             echo "Profile updated successfully!"
           fi

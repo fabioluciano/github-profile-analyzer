@@ -224,16 +224,13 @@ Cores sugeridas por tecnologia (use HEX sem #):
 - Vue: 4FC08D
 - Node.js: 339933
 
-### 7. "📊 GitHub Stats"
+### 7. "🏆 GitHub Trophies"
 Inclua:
 ```markdown
 <div align="center">
-  <img height="180em" src="https://github-readme-stats.vercel.app/api?username={
+  <img src="https://github-profile-trophy.vercel.app/?username={
             settings.github_username
-        }&show_icons=true&theme=dark&include_all_commits=true&count_private=true"/>
-  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username={
-            settings.github_username
-        }&layout=compact&langs_count=8&theme=dark"/>
+        }&theme=onedark&no-frame=true&no-bg=true&column=7"/>
 </div>
 ```
 
@@ -360,7 +357,7 @@ I'm a developer with {len(all_data["starred"])} starred repositories and {len(al
 
 {", ".join(trends["expertise_areas"]) if trends["expertise_areas"] else "Exploring various technologies"}
 
-## GitHub Stats
+## GitHub Trophies
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username={settings.github_username}&show_icons=true&theme=dark)
+![GitHub Trophies](https://github-profile-trophy.vercel.app/?username={settings.github_username}&theme=onedark&no-frame=true&no-bg=true&column=7)
 """
