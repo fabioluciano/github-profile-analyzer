@@ -168,6 +168,7 @@ Crie um README.md profissional, moderno e impactante seguindo estas diretrizes:
 - Subtítulo que captura a essência profissional (infira do contexto)
 - Se tiver bio, use como inspiração mas melhore
 - Badges relevantes: localização, redes sociais
+- **NÃO INCLUA FOTO/AVATAR** - o GitHub já exibe a foto do perfil automaticamente
 
 ### 2. "👋 Sobre Mim" (2-3 parágrafos)
 - Introdução autêntica e profissional
