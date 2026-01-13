@@ -225,27 +225,17 @@ Cores sugeridas por tecnologia (use HEX sem #):
 - Vue: 4FC08D
 - Node.js: 339933
 
-### 7. "🏆 GitHub Trophies"
-Inclua:
-```markdown
-<div align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username={
-            settings.github_username
-        }&theme=onedark&no-frame=true&no-bg=true&column=7"/>
-</div>
-```
-
-### 8. "🤝 Contribuições & Colaboração"
+### 7. "🤝 Contribuições & Colaboração"
 - Se houver PRs externos, mencione
 - Convite para colaboração
 - Links para issues/discussions se aplicável
 
-### 9. "📝 Últimos Posts do Blog"
+### 8. "📝 Últimos Posts do Blog"
 - Se houver posts do blog disponíveis, liste os últimos 5
 - Use o formato: [Título](link) - data
 - Adicione link para o blog completo
 
-### 10. "📫 Como me Encontrar"
+### 9. "📫 Como me Encontrar"
 - GitHub: {settings.github_username}
 - Email: {settings.email}
 - LinkedIn: {settings.linkedin}
@@ -357,8 +347,4 @@ I'm a developer with {len(all_data["starred"])} starred repositories and {len(al
 ## Technologies
 
 {", ".join(trends["expertise_areas"]) if trends["expertise_areas"] else "Exploring various technologies"}
-
-## GitHub Trophies
-
-![GitHub Trophies](https://github-profile-trophy.vercel.app/?username={settings.github_username}&theme=onedark&no-frame=true&no-bg=true&column=7)
 """
