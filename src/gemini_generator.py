@@ -164,11 +164,11 @@ Crie um README.md profissional, moderno e impactante seguindo estas diretrizes:
 ## ESTRUTURA OBRIGATÓRIA
 
 ### 1. HEADER IMPACTANTE
-- Título com nome/username
+- Comece DIRETAMENTE com `# Nome` (título H1) - SEM NENHUMA TAG HTML ANTES
 - Subtítulo que captura a essência profissional (infira do contexto)
 - Se tiver bio, use como inspiração mas melhore
 - Badges relevantes: localização, redes sociais
-- **NÃO INCLUA FOTO/AVATAR** - o GitHub já exibe a foto do perfil automaticamente
+- **PROIBIDO**: NÃO inclua foto, avatar, ou qualquer `<img>` de perfil
 
 ### 2. "👋 Sobre Mim" (2-3 parágrafos)
 - Introdução autêntica e profissional
@@ -271,6 +271,17 @@ Cores sugeridas por tecnologia (use HEX sem #):
 - Foco em uma stack → Destaque especialização profunda
 - Contribuições externas → Destaque colaboração open source
 - Repos bem documentados → Mencione foco em qualidade/documentação
+
+## PROIBIÇÕES ABSOLUTAS - NÃO INCLUA ESTES ELEMENTOS
+
+**CRÍTICO - LEIA COM ATENÇÃO:**
+1. **NÃO INCLUA FOTO/AVATAR/IMAGEM DE PERFIL** - O GitHub já exibe automaticamente
+2. **NÃO INCLUA SEÇÃO "GitHub Stats"** - Não use github-readme-stats ou similar
+3. **NÃO INCLUA SEÇÃO "GitHub Trophies"** - Não use github-profile-trophy
+4. **NÃO USE tags `<p align="center">` para foto** - Isso é proibido
+5. **NÃO USE `<img src="https://github.com/USERNAME.png">`** - Isso é proibido
+
+Se você incluir qualquer um destes elementos, o README será rejeitado.
 
 ## FORMATO DE SAÍDA
 
