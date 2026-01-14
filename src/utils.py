@@ -253,7 +253,8 @@ def format_skills_for_prompt(resume_data: Dict[str, Any]) -> str:
     }
 
     for category, techs in category_mapping.items():
-        lines.append(f"#### {category}")
+        lines.append(f"### {category}")
+        lines.append("")
         badge_list = []
         for tech in techs:
             if tech in valid_badges:

@@ -174,21 +174,27 @@ Crie um README.md profissional, moderno e impactante seguindo estas diretrizes:
 
 ## ESTRUTURA OBRIGATÓRIA
 
+**CRÍTICO - FORMATAÇÃO DE HEADERS:**
+- O título principal deve ser `# Nome` (H1)
+- TODAS as seções devem usar `##` (H2) como header. Exemplo: `## 👋 Sobre Mim`
+- Subseções dentro de seções usam `###` (H3) ou `####` (H4)
+- NUNCA omita o `#` ou `##` antes dos títulos de seção
+
 ### 1. HEADER IMPACTANTE
 - Comece DIRETAMENTE com `# Nome` (título H1) - SEM NENHUMA TAG HTML ANTES
-- Subtítulo que captura a essência profissional (infira do contexto)
+- Na linha seguinte, o subtítulo profissional (sem header, apenas texto)
 - Se tiver bio, use como inspiração mas melhore
 - Badges relevantes: localização, redes sociais
 - **PROIBIDO**: NÃO inclua foto, avatar, ou qualquer `<img>` de perfil
 
-### 2. "👋 Sobre Mim" (2-3 parágrafos)
+### 2. `## 👋 Sobre Mim` (2-3 parágrafos)
 - Introdução autêntica e profissional
 - Mencione o papel/especialização inferido dos dados
 - **OBRIGATÓRIO**: Mencione TODAS as áreas de expertise listadas acima
 - Destaque expertise principal (baseado em tópicos/linguagens dominantes)
 - Adicione um toque pessoal se houver informações disponíveis
 
-### 3. "🎯 Foco Atual & Interesses"
+### 3. `## 🎯 Foco Atual & Interesses`
 - **OBRIGATÓRIO**: Liste TODAS as 8 áreas de expertise fornecidas acima como foco atual
 - Use bullet points com emojis relevantes para cada área:
   * ☁️ Arquitetura Cloud & FinOps
@@ -201,35 +207,36 @@ Crie um README.md profissional, moderno e impactante seguindo estas diretrizes:
   * 📊 Observabilidade & SRE
 - Seja ESPECÍFICO ao descrever cada área
 
-### 4. "🚀 Projetos em Desenvolvimento"
+### 4. `## 🚀 Projetos em Desenvolvimento`
 - Baseado em commits recentes e repos ativos
 - Mencione tecnologias específicas sendo usadas
 - Se houver pouca atividade pública, foque em explorações (stars recentes)
 - Máximo 3-4 itens
 
-### 5. "🌱 Aprendendo Agora"
+### 5. `## 🌱 Aprendendo Agora`
 - Tecnologias/frameworks novos (stars recentes, tópicos emergentes)
 - Áreas de interesse crescente
 - 3-5 itens específicos
 
-### 6. "💼 Experiência & Stack Tecnológica"
+### 6. `## 💼 Experiência & Stack Tecnológica`
 
 **CRÍTICO - COPIE EXATAMENTE**: Os badges abaixo já estão prontos. Copie-os exatamente como estão.
 **NÃO adicione texto após os badges. NÃO adicione tecnologias extras.**
+**Use `####` (H4) para subcategorias como "Linguagens de Programação", "Cloud & FinOps", etc.**
 
 {skills_section}
 
-### 7. "🤝 Contribuições & Colaboração"
+### 7. `## 🤝 Contribuições & Colaboração`
 - Se houver PRs externos, mencione
 - Convite para colaboração
 - Links para issues/discussions se aplicável
 
-### 8. "📝 Últimos Posts do Blog"
+### 8. `## 📝 Últimos Posts do Blog`
 - Se houver posts do blog disponíveis, liste os últimos 5
 - Use o formato: [Título](link) - data
 - Adicione link para o blog completo
 
-### 9. "📫 Como me Encontrar"
+### 9. `## 📫 Como me Encontrar`
 - GitHub: {settings.github_username}
 - Email: {settings.email}
 - LinkedIn: {settings.linkedin}
