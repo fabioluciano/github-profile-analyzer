@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     # API settings
     github_api_base: str = "https://api.github.com"
     gemini_model: str = "gemini-2.5-flash"
-    blog_rss_url: str = "https://fabioluciano.com/rss.xml"
+    blog_rss_url: str = "https://fabioluciano.com/rss-pt.xml"
     resume_repo_base: str = "https://raw.githubusercontent.com/fabioluciano/resume.fabioluciano.com/main/data"
 
     # Analysis settings
